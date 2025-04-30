@@ -16,13 +16,27 @@ class Genre(BaseModel):
 
 
 class Author(BaseModel):
-    full_name = models.CharField(
-        _("Full Name"),
+    first_name = models.CharField(
+        _("First Name"),
         max_length=255,
+    )
+    last_name = models.CharField(
+        _("Last Name"),
+        max_length=255,
+    )
+    birth_date = models.DateField(
+        verbose_name=_("Birth Date"),
+        null=True,
+        blank=True
+    )
+    death_date = models.DateField(
+        verbose_name=_("Death Date"),
+        null=True,
+        blank=True
     )
 
     def __str__(self):
-        return self.full_name
+        return self.first_name
 
     class Meta:
         verbose_name = _("Author")
@@ -59,6 +73,10 @@ class Book(BaseModel):
     published_date = models.DateField(
         verbose_name="Published Date"
     )
+    created_date = models.DateField(
+        verbose_name="Created Date",
+        auto_now_add=True
+    )
     copies_sold = models.PositiveIntegerField(
         verbose_name=_("Copies Sold"),
         default=0,
@@ -74,7 +92,7 @@ class Book(BaseModel):
             MaxValueValidator(100)
         ]
     )
-    cover_image = models.ImageField()
+    cover = models.ImageField()
 
     def __str__(self):
         return self.title
