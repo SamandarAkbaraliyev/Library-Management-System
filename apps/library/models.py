@@ -75,7 +75,6 @@ class Book(BaseModel):
     )
     created_date = models.DateField(
         verbose_name="Created Date",
-        auto_now_add=True
     )
     copies_sold = models.PositiveIntegerField(
         verbose_name=_("Copies Sold"),
