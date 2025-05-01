@@ -91,7 +91,12 @@ class Book(BaseModel):
             MaxValueValidator(100)
         ]
     )
-    cover = models.ImageField()
+    cover = models.ImageField(
+        verbose_name=_("Cover"),
+        upload_to='covers',
+        null=True,
+        blank=True,
+    )
 
     def __str__(self):
         return self.title

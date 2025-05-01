@@ -1,0 +1,36 @@
+name:  CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name:  Checkout code
+        uses: actions/checkout@v3
+
+      - name:  Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name:  Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+
+      - name:  Build and deploy with Docker Compose
+        run: |
+          docker-compose down
+          docker-compose up -d --build
+
+      - name:  Run migrations
+        run: docker-compose exec web python manage.py migrate
+
+      - name:  Cleanup unused Docker images (optional)
+        run: docker image prune -af

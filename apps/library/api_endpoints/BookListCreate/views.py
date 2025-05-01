@@ -3,6 +3,7 @@ from apps.library.models import Book
 from rest_framework.generics import ListCreateAPIView
 from apps.users.permissions import IsAdminRole
 from rest_framework.parsers import MultiPartParser
+from drf_spectacular.utils import extend_schema
 
 
 class BookListCreateView(ListCreateAPIView):
@@ -18,6 +19,13 @@ class BookListCreateView(ListCreateAPIView):
         if self.request.method == 'POST':
             return BookCreateSerializer
         return BookListSerializer
+
+    @extend_schema(
+        request=BookCreateSerializer,
+        responses={201: BookCreateSerializer},
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
 __all__ = [

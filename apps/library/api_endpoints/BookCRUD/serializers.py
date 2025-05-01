@@ -3,7 +3,7 @@ from apps.library.models import Book
 from apps.library.serializers import AuthorSerializer
 
 
-class BookListSerializer(serializers.ModelSerializer):
+class BookDetailSerializer(serializers.ModelSerializer):
     author = AuthorSerializer()
     genre = serializers.CharField(source='genre.name', allow_null=True)
     cover = serializers.SerializerMethodField()
@@ -31,7 +31,7 @@ class BookListSerializer(serializers.ModelSerializer):
         return None
 
 
-class BookCreateSerializer(serializers.ModelSerializer):
+class BookUpdateSerializer(serializers.ModelSerializer):
     cover = serializers.ImageField()
 
     class Meta:

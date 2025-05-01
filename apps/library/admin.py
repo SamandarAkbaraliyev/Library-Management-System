@@ -34,7 +34,6 @@ class BookAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description', 'author__first_name', 'author__last_name')
     list_filter = ('genre', 'author', 'published_date')
     ordering = ('-published_date',)
-    readonly_fields = ('created_date',)
     inlines = [RatingInline]
 
 

@@ -44,6 +44,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     "rest_framework_simplejwt",
     'drf_spectacular',
+    'drf_yasg',
 ]
 
 LOCAL_APPS = [
@@ -208,3 +209,12 @@ SIMPLE_JWT = {
 }
 REST_USE_JWT = True
 
+SWAGGER_SETTINGS = {
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    },
+}
